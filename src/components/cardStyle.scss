@@ -1,0 +1,33 @@
+$buttonDark: #94468f;
+$buttonLight: #DAE0F2;
+$shadow: #47494b44;
+$background: #DAE0F2;
+
+.image{
+    width: 100px;
+    height: 100px;
+    padding: 30px;
+    border-radius: 35px;
+    background-color: $background;
+    box-shadow: 5px 5px 5px $shadow;
+    fill-opacity: 0.5;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $buttonDark;
+        transition: 0.5s;
+    }
+}
+.imageOnBoard{
+    animation-duration: 2s;
+    animation-name: slidein;
+}
+@keyframes slidein {
+    from {
+        transform: rotate(0);
+    }
+  
+    to {
+        transform: rotate(360deg);
+    }
+  }

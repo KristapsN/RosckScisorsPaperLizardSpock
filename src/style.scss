@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+
+$buttonDark: #94468f;
+$buttonLight: #DAE0F2;
+$shadow: #47494b44;
+$background: #DAE0F2;
+
+*{
+    box-sizing: border-box;
+    background-color: #EFE9E7;
+    font-family: 'Potta One', cursive;
+
+}
+.margin--botom--40{
+    margin-bottom: 40px;
+}
+.singleCardWrapper{
+    background-color: #c7c2c0;
+    padding: 40px;
+    border: 1px solid #adaaa9;
+}
+.placeholderCards{
+    font-size: 20px;
+    margin: 50px;
+    line-height: 0;
+    color: #adaaa9;
+    background-color: #c7c2c0;
+}
+.mainBar{
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+    color: #707070;
+}
