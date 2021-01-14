@@ -6,8 +6,6 @@
 import { defineComponent } from 'vue';
 
 const DeckCard = defineComponent({
-  components: {
-  },
   props: {
     image: String,
     id: Number,

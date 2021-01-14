@@ -6,8 +6,6 @@
 import { defineComponent } from 'vue';
 
 const OnBoardCard = defineComponent({
-  components: {
-  },
   props: {
     image: String,
     id: Number,
