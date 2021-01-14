@@ -1,5 +1,5 @@
 <template>
-      <img :src="image" class="image imageOnBoard">
+    <img :src="image" class="imageOnBoard">
 </template>
 
 <script lang="ts">
@@ -11,10 +11,6 @@ const OnBoardCard = defineComponent({
   props: {
     image: String,
     id: Number,
-  },
-  data() {
-    return {
-    };
   },
 });
 

@@ -1,16 +1,30 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+    <div v-if="popupOpen || startPopup">
+      <Popup
+        :mesage="mesage"
+        :description="description"
+        :close="false"
+        @closePopup="closePopup"
+      />
+    </div>
+    <div class="row center-xs center-md">
+      <div class="col-md-12 col-xs-12">
         <div class="mainBar">
-          <h2 class="score">Your wins: {{ myScore }}</h2>
+          <div class="col-xs-4">
+            <h2 class="score">Your money: {{ myScore }}€</h2>
+          </div>
+          <div class="col-xs-4">
           <h2 class="score">{{ oneGameResult }}</h2>
-          <h2 class="score">Computer wins: {{ opponentScore }}</h2>
+          </div>
+          <div class="col-xs-4">
+          <h2 class="score">Computers money: {{ opponentScore }}€</h2>
+          </div>
         </div>
       </div>
     </div>
     <div class="row center-xs">
-      <div class="col-xs-8 ">
+      <div class="col-md-8 col-xs-12">
         <div v-if="myCardToShow" class="singleCardWrapper">
           <OnBoardCard
             :image="cardDeck[OpponentCard -1].image"
@@ -22,19 +36,19 @@
       </div>
     </div>
     <div class="row center-xs ">
-      <div class="col-xs-8">
+      <div class="col-md-8 col-xs-12">
          <div v-if="myCardToShow" class="margin--botom--40 singleCardWrapper">
           <OnBoardCard
-              :image="cardDeck[myCardToShow -1].image"
-            />
+            :image="cardDeck[myCardToShow -1].image"
+          />
          </div>
         <div v-else class="singleCardWrapper margin--botom--40 ">
           <h4 class="placeholderCards">Your card</h4>
         </div>
       </div>
     </div>
-    <div class="row center-md">
-      <div v-for="card in cardDeck" :key="card.id" class="col-md-2 center-md">
+    <div class="row center-md centered-xs">
+      <div v-for="card in cardDeck" :key="card.id" class="col-md-2 center-md col-xs-6 center-xs " >
         <DeckCard :image="card.image" :id="card.id" @choseCard="choseCard" />
       </div>
     </div>
@@ -45,6 +59,7 @@
 import { defineComponent } from 'vue';
 import DeckCard from './components/deckCard.vue';
 import OnBoardCard from './components/onBoardCard.vue';
+import Popup from './components/popup.vue';
 
 type CardDeck = {
   id: number;
@@ -58,12 +73,17 @@ type Data = {
   myScore: number;
   opponentScore: number;
   aiDatabase: number[];
+  popupOpen: boolean;
+  mesage: string;
+  startPopup: boolean;
+  description: string;
 };
 
 export default defineComponent({
   components: {
     DeckCard,
     OnBoardCard,
+    Popup,
   },
   data(): Data {
     return {
@@ -77,26 +97,53 @@ export default defineComponent({
       myCardToShow: 0,
       OpponentCard: 0,
       sumOfCards: 0,
-      myScore: 0,
-      opponentScore: 0,
+      myScore: 5,
+      opponentScore: 5,
       aiDatabase: [1, 2, 3, 4, 5],
+      popupOpen: false,
+      mesage: 'Are you 18 or older?',
+      startPopup: true,
+      description: 'This game involves gamling, continue only if you are 18 or older!',
     };
   },
   methods: {
+    closePopup() {
+      this.popupOpen = false;
+      this.startPopup = false;
+      console.log(this.popupOpen);
+      this.myScore = 5;
+      this.opponentScore = 5;
+      this.myCardToShow = 0;
+      this.OpponentCard = 0;
+    },
+
     choseCard(id: number) {
       this.myCardToShow = id;
       if (id > 1) {
         this.aiDatabase.push(id - 1);
       } else { this.aiDatabase.push(5); }
-      console.log(this.aiDatabase);
+
       this.OpponentCard = this.aiDatabase[
         Math.floor(Math.random() * this.aiDatabase.length - 1 + 1)
       ];
+
       this.sumOfCards = this.myCardToShow + this.OpponentCard;
       if (this.oneGameResult === 'Win') {
         this.myScore += 1;
+        this.opponentScore -= 1;
       } else if (this.oneGameResult === 'Lose') {
         this.opponentScore += 1;
+        this.myScore -= 1;
+      }
+
+      if (this.myScore <= 0) {
+        this.popupOpen = true;
+        this.mesage = 'Unfortunatly you are out of money';
+        this.description = 'Would you like to have another try?';
+      } else if (this.opponentScore <= 0) {
+        this.popupOpen = true;
+        this.mesage = 'Congratulations, you Won!';
+        this.description = 'Would you like to win again?';
       }
     },
   },

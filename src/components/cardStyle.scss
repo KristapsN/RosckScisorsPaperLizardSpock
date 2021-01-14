@@ -10,7 +10,6 @@ $background: #DAE0F2;
     border-radius: 35px;
     background-color: $background;
     box-shadow: 5px 5px 5px $shadow;
-    fill-opacity: 0.5;
     cursor: pointer;
 
     &:hover{
@@ -19,15 +18,44 @@ $background: #DAE0F2;
     }
 }
 .imageOnBoard{
-    animation-duration: 2s;
-    animation-name: slidein;
+    width: 100px;
+    height: 100px;
+    padding: 30px;
+    border-radius: 35px;
+    background-color: $background;
+    box-shadow: 5px 5px 5px $shadow;
+    animation-duration: 1s;
+    animation-name: showUp;
 }
-@keyframes slidein {
+@keyframes showUp {
     from {
-        transform: rotate(0);
+        transform: scale(2);
     }
-  
     to {
-        transform: rotate(360deg);
+        transform: scale(1);
     }
   }
+.popupPosition{
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    top:0px; 
+    bottom:0px;
+    background-color: $buttonLight;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.popupWrapper{
+    padding: 20px 0;
+}
+.popupButton{
+    padding: 5px 10px;
+    cursor: pointer;
+    &:hover{
+        border: 2px solid $buttonDark;
+        transition: 0.5s;
+        color: $buttonDark;
+    }
+}

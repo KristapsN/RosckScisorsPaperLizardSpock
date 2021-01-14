@@ -1,7 +1,5 @@
 <template>
-  <div class="cardWrapper"  @click="onSubmit">
-      <img :src="image" class="image">
-    </div>
+    <img :src="image" class="image" @click="onSubmit">
 </template>
 
 <script lang="ts">
@@ -11,13 +9,8 @@ const DeckCard = defineComponent({
   components: {
   },
   props: {
-    icon: String,
     image: String,
     id: Number,
-  },
-  data() {
-    return {
-    };
   },
   methods: {
     onSubmit() {
